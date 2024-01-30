@@ -39,18 +39,33 @@ if tickerSymbol !="":
     with col1:
         st.write("")
         st.write("Closing Price vs Time")
+    if not tickerDF.Close.empty:
         st.line_chart(tickerDF.Close)
+    else:
+        st.write("No data available.")
 
     with col2:
         st.write("")
         st.write("Volume vs Time")
-        st.line_chart(tickerDF.Volume)
+        if not tickerDF.Volume.empty:
+            st.line_chart(tickerDF.Volume)
+        else:
+            st.write("No data available.")
 
     col1, col2 = st.columns(2)
     with col1:
-        st.write(tickerSymbol+" Price Chart")
-        st.write(tickerDF)
+        if not tickerDF.empty:
+            st.write(tickerSymbol + " Price Chart")
+            st.write(tickerDF)
+        else:
+            st.write("No data available.")
+
     with col2:
-        st.write("Future and Historic Earning Dates")
-        st.write(tickerData.earnings_dates)
+        if tickerData.earnings_dates is not None and not tickerData.earnings_dates.empty:
+            st.write("Future and Historic Earning Dates")
+            st.write(tickerData.earnings_dates)
+        else:
+            st.write("No earnings dates available.")
+
+
     
