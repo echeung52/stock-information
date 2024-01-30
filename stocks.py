@@ -9,8 +9,8 @@ tickerSymbol = st.text_input(label='Enter a ticket symbol', placeholder='Ticker 
 
 tickerData = yf.Ticker(tickerSymbol)
 
-if tickerSymbol !="":
-    st.write("#### Stock Information for "+tickerSymbol)
+if tickerSymbol != "":
+    st.write("#### Stock Information for " + tickerSymbol)
     st.markdown("---")
     col1, col2 = st.columns([4, 3])
     with col1:
@@ -61,11 +61,12 @@ if tickerSymbol !="":
             st.write("No data available.")
 
     with col2:
-        if tickerData.earnings_dates is not None and not tickerData.earnings_dates.empty:
-            st.write("Future and Historic Earning Dates")
-            st.write(tickerData.earnings_dates)
-        else:
-            st.write("No earnings dates available.")
-
-
-    
+        try:
+            earnings_dates = tickerData.earnings_dates
+            if earnings_dates is not None and not earnings_dates.empty:
+                st.write("Future and Historic Earning Dates")
+                st.write(earnings_dates)
+            else:
+                st.write("No earnings dates available.")
+        except Exception as e:
+            st.write("Error retrieving earnings dates:", str(e))
