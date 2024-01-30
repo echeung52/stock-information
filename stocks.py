@@ -39,10 +39,10 @@ if tickerSymbol !="":
     with col1:
         st.write("")
         st.write("Closing Price vs Time")
-    if not tickerDF.Close.empty:
-        st.line_chart(tickerDF.Close)
-    else:
-        st.write("No data available.")
+        if not tickerDF.Close.empty:
+            st.line_chart(tickerDF.Close)
+        else:
+            st.write("No data available.")
 
     with col2:
         st.write("")
